@@ -27,10 +27,23 @@ public class PostRequests {
             connect.setDoOutput(true);
 
             JSONObject json = new JSONObject();
-            String jsonText =   "{\"id\": 1," +
+            String jsonText =   "{\"customerId\": "+ toPost[0] +
+                             //   ",\"status\": \"In Progress\"," +
+                                "\"takeaway\": "+ toPost[1] +", " +
+                                "\"payment_type\": "+ toPost[2] +"," +
+                                "\"delivery_address\": " +
+                                    " { \"street\": "+ toPost[3] +", " +
+                                    "\"city\": "+ toPost[4] +"," +
+                                    "\"country\": "+ toPost[5] +", " +
+                                    "\"zipcode\": "+ toPost[6] +" }," +
+                                "\"pizzas\": [{ \"pizza_id\": " + toPost[7] + " }]" +
+                                ", \"note\": "+ toPost[8] +" }";
+/*
+String jsonText =   "{" +
+                    //"\"id\": 1," +
                                 " \"customerId\": "+ toPost[3] +
                                 ",\"status\": \"In Progress\"," +
-                                "\"orderedAt\": \"2012-04-23T18:05:32.511Z\"," +
+                              //  "\"orderedAt\": \"2012-04-23T18:05:32.511Z\"," +
                                 "\"takeaway\": "+ toPost[1] +", \"payment_type\": \"cash\"," +
                                 "\"delivery_address\": " +
                                     " { \"street\": \"Paul-Henri Spaaklaan 1\", " +
@@ -39,7 +52,7 @@ public class PostRequests {
                                     "\"zipcode\": \"6229 EN\" }," +
                                 "\"pizzas\": [{ \"pizza_id\": " + toPost[0] + " }]" +
                                 ", \"note\": \"No Onions\" }";
-
+ */
 
             StringBuffer response = new StringBuffer();
 
