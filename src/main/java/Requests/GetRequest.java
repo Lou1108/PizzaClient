@@ -67,7 +67,7 @@ public class GetRequest {
             int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegeterian");
-            int price = pizza.getInt("price");
+            double price = pizza.getDouble("price");
 
             output += ("PizzaID: " + pizzaId + "\n" + "name: " + name
                     + "\n" + "vegeterian: " + veg + "\n" + "price: " +price + "\n" + "\n");
@@ -85,7 +85,7 @@ public class GetRequest {
             int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegeterian");
-            int price = pizza.getInt("price");
+            double price = pizza.getDouble("price");
             JSONArray toppings = pizza.getJSONArray("toppings");
             String top = "";
             for(int j = 0; j < toppings.length();j++){
@@ -110,12 +110,9 @@ public class GetRequest {
             //TODO             int pizzaId = pizza.getInt("customer_id");
             int customer = pizza.getInt("customerId");
             String status = pizza.getString("status");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             String time = pizza.getString("orderedAt");
             boolean takeaway = pizza.getBoolean("takeaway");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             String payment = pizza.getString("paymentType");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             JSONObject delivery = pizza.getJSONObject("deliveryAddress");
 
 
