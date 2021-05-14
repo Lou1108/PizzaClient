@@ -12,7 +12,7 @@ public class PutRequest {
     private final int TIMEOUT = 5000;
 
     //return message or error code?
-    public void put(String id) {
+    public String put(String id) {
         try {
             StringBuffer response = new StringBuffer();
             String host = "http://localhost:8080/api/order/cancel/" + id;
@@ -20,7 +20,7 @@ public class PutRequest {
             URL url = new URL(host);
             connect = (HttpURLConnection) url.openConnection();
 
-            //GET
+            //PUT
             connect.setRequestMethod("PUT");
             connect.setConnectTimeout(TIMEOUT);
             connect.setReadTimeout(TIMEOUT);
@@ -42,13 +42,13 @@ public class PutRequest {
                     response.append(ln);
                 }
             }
-            System.out.println(response.toString());
+            return response.toString();
 
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             connect.disconnect();
         }
+        return "PUT Request Failed";
     }
 }

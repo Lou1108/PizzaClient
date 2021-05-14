@@ -1,6 +1,7 @@
 import Requests.GetRequest;
 import Requests.PostRequests;
 import Requests.PutRequest;
+import org.w3c.dom.ls.LSOutput;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,12 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 public class PizzaGui extends JFrame
@@ -163,9 +159,8 @@ public class PizzaGui extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 String input = userIn.getText();
-                request.put("order/" + input);
-                // TODO change output to give back response
-                JOptionPane.showMessageDialog(null, "Your order was cancelled.");
+                String out = request.put(input);
+                JOptionPane.showMessageDialog(null, out);
             }
         });
 
@@ -183,7 +178,13 @@ public class PizzaGui extends JFrame
         JTextField input_1 = new JTextField(10);
 
         JLabel takeaway = new JLabel("Do you want takeaway? ");
-        JTextField input_2 = new JTextField(10);
+        ButtonGroup buttons = new ButtonGroup();
+            JRadioButton buttonYes = new JRadioButton("Yes", true);
+                buttonYes.setActionCommand("true");
+            JRadioButton buttonNo = new JRadioButton("No", false);
+                buttonNo.setActionCommand("false");
+            buttons.add(buttonYes);
+            buttons.add(buttonNo);
 
         JLabel payment = new JLabel("How do you want to pay? ");
         JTextField input_3 = new JTextField(10);
@@ -191,7 +192,7 @@ public class PizzaGui extends JFrame
         JLabel id = new JLabel("Enter your customer id: ");
         JTextField input_4 = new JTextField(10);
 
-        JLabel adress = new JLabel("Enter your address: ");
+        JLabel address = new JLabel("Enter your address: ");
         JTextField input_5 = new JTextField(50);
 
 
@@ -203,24 +204,24 @@ public class PizzaGui extends JFrame
             public void actionPerformed(ActionEvent e) {
 
                 String [] input = { input_1.getText(),
-                        input_2.getText(),
+                        String.valueOf(buttons.getSelection().getActionCommand()),
                         input_3.getText(),
                         input_4.getText(),
                         input_5.getText()};
 
 
-                request.post(input);
-                // TODO change output to give back response
-                JOptionPane.showMessageDialog(null, "Your Order was submitted");
+                String out = request.post(input);
+
+                JOptionPane.showMessageDialog(null, out);
             }
         });
 
 
         panel.add(pizzas); panel.add(input_1);
-        panel.add(takeaway);  panel.add(input_2);
+        panel.add(takeaway);  panel.add(buttonYes); panel.add(buttonNo);
         panel.add(payment); panel.add(input_3);
         panel.add(id); panel.add(input_4);
-        panel.add(adress); panel.add(input_5);
+        panel.add(address); panel.add(input_5);
         panel.add(infoButton);
 
         return panel;

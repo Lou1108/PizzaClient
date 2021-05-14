@@ -1,5 +1,8 @@
 package Requests;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -13,42 +16,60 @@ public class PostRequests {
 
     private HttpURLConnection connect;
 
-    public void post(String[] toPost) {
+    public String post(String[] toPost) {
 
 
         try {
             URL url = new URL("http://localhost:8080/api/order");
             connect = (HttpURLConnection) url.openConnection();
             connect.setRequestMethod("POST");
-            connect.setRequestProperty("Content-Type", "application/json; utf-8");
-            connect.setRequestProperty("Accept", "application/json");
+            connect.setRequestProperty("Content-Type", "application/json");
             connect.setDoOutput(true);
 
-            Map<String, String> arg = new HashMap<>();
-            arg.put("pizzas", toPost[0]);
-            arg.put("takeaway", toPost[1]);
-            arg.put("payment_type", toPost[2]);
-            arg.put("customer_id", toPost[3]);
-            arg.put("delivery_address", toPost[4]);
-            //TODO continue here, add the actual address, notes
+            JSONObject json = new JSONObject();
+            String jsonText =   "{\"id\": 1," +
+                                " \"customerId\": "+ toPost[3] +
+                                ",\"status\": \"In Progress\"," +
+                                "\"orderedAt\": \"2012-04-23T18:05:32.511Z\"," +
+                                "\"takeaway\": "+ toPost[1] +", \"payment_type\": \"cash\"," +
+                                "\"delivery_address\": " +
+                                    " { \"street\": \"Paul-Henri Spaaklaan 1\", " +
+                                    "\"city\": \"Maastricht\"," +
+                                    "\"country\": \"Netherlands\", " +
+                                    "\"zipcode\": \"6229 EN\" }," +
+                                "\"pizzas\": [{ \"pizza_id\": " + toPost[0] + " }]" +
+                                ", \"note\": \"No Onions\" }";
 
 
-            System.out.println(arg);
-
-            StringJoiner post = new StringJoiner("&");
-            for (Map.Entry<String, String> entry : arg.entrySet())
-                post.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "="
-                        + URLEncoder.encode(entry.getValue(), "UTF-8"));
-
-            byte[] out = post.toString().getBytes(StandardCharsets.UTF_8);
-            System.out.println(out);
+            StringBuffer response = new StringBuffer();
 
             try (OutputStream os = connect.getOutputStream()) {
-                os.write(out);
+                byte[] input = jsonText.getBytes("utf-8");
+                os.write(input, 0, input.length);
             }
+
+
             System.out.println(connect.getOutputStream().toString());
 
-            //read response
+            int status = connect.getResponseCode();
+
+            String ln;
+            BufferedReader read;
+
+            if (status > 299) {
+                read = new BufferedReader(new InputStreamReader(connect.getErrorStream()));
+                while ((ln = read.readLine()) != null) {
+                    response.append(ln);
+                }
+                read.close();
+            } else {
+                read = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+                while ((ln = read.readLine()) != null) {
+                    response.append(ln);
+                }
+            }
+            System.out.println(response.toString());
+            return response.toString();
 
 
 
@@ -56,6 +77,7 @@ public class PostRequests {
             malformedURLException.printStackTrace();
         }
 
+        return "POST Request failed";
     }
 }
 
