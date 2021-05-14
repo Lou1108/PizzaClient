@@ -29,8 +29,11 @@ public class PostRequests {
             arg.put("takeaway", toPost[1]);
             arg.put("payment_type", toPost[2]);
             arg.put("customer_id", toPost[3]);
-            arg.put("delivery_address", "something");
+            arg.put("delivery_address", toPost[4]);
+            //TODO continue here, add the actual address, notes
 
+
+            System.out.println(arg);
 
             StringJoiner post = new StringJoiner("&");
             for (Map.Entry<String, String> entry : arg.entrySet())
