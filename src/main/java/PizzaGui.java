@@ -53,17 +53,19 @@ public class PizzaGui extends JFrame
 
 
     JPanel pizzaInformation() {
+        GetRequest request = new GetRequest();
         JPanel info = new JPanel();
         JLabel use = new JLabel("Enter a pizza id: ");
-        JTextField user_1 = new JTextField(10);
+
+        JComboBox<String> user_1 = new JComboBox<>(request.pizzaIDs());
 
         JButton infoButton = new JButton("Get Pizza Information");
 
-        GetRequest request = new GetRequest();
         infoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String input = user_1.getText();
+                String[] word = String.valueOf(user_1.getSelectedItem()).split(" ");
+                String input = word[1];
                 System.out.println("pizza/" + input);
                 String output = request.get("pizza/" + input);
                 JOptionPane.showMessageDialog(null, request.parsePizzaInfo(output));

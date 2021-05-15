@@ -1,5 +1,8 @@
 package Requests;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,7 +45,7 @@ public class PutRequest {
                     response.append(ln);
                 }
             }
-            return response.toString();
+            return parsePut(response.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,4 +54,25 @@ public class PutRequest {
         }
         return "PUT Request Failed";
     }
+
+
+   public String parsePut(String response){
+       if (response.charAt(0) != '{'){
+           return response;
+       }
+
+      // JSONArray pizzas = new JSONArray(response);
+       String output = "";
+      // for (int i = 0; i<pizzas.length();i++) {
+           JSONObject pizza = new JSONObject(response);
+
+           //TODO             int pizzaId = pizza.getInt("pizza_id");
+           int orderId = pizza.getInt("id");
+           String status = pizza.getString("status");
+           output +=  "ID: " + orderId + " \n" + "status: " +status;
+      // }
+       return output;
+   }
+
+
 }

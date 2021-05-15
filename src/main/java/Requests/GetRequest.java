@@ -137,6 +137,24 @@ public class GetRequest {
 
     }
 
+    public String[] pizzaIDs(){
+        String response = get("pizza");
+        if (response.charAt(0) != '['){
+            return new String[] {};
+        }
+
+        JSONArray pizzas = new JSONArray(response);
+        String[] output = new String[pizzas.length()];
+        for (int i = 0; i<pizzas.length();i++) {
+            JSONObject pizza = pizzas.getJSONObject(i);
+
+            //TODO             int pizzaId = pizza.getInt("pizza_id");
+            int pizzaId = pizza.getInt("id");
+            String name = pizza.getString("name");
+            output[i] =  "ID " + pizzaId + " : " +name;
+        }
+        return output;
+    }
 }
 
 
