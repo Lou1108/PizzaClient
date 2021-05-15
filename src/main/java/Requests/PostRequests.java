@@ -26,9 +26,9 @@ public class PostRequests {
             connect.setRequestProperty("Content-Type", "application/json");
             connect.setDoOutput(true);
 
-            JSONObject json = new JSONObject();
+
             String jsonText =   "{\"customerId\": "+ toPost[0] +
-                             //   ",\"status\": \"In Progress\"," +
+                                ",\"status\": \"In Progress\"," +
                                 "\"takeaway\": "+ toPost[1] +", " +
                                 "\"payment_type\": "+ toPost[2] +"," +
                                 "\"delivery_address\": " +
@@ -37,7 +37,7 @@ public class PostRequests {
                                     "\"country\": "+ toPost[5] +", " +
                                     "\"zipcode\": "+ toPost[6] +" }," +
                                 "\"pizzas\": [{ \"pizza_id\": " + toPost[7] + " }]" +
-                                ", \"note\": "+ toPost[8] +" }";
+                                ", \"note\": "+toPost[8]+" }";
 /*
 String jsonText =   "{" +
                     //"\"id\": 1," +
@@ -52,6 +52,13 @@ String jsonText =   "{" +
                                     "\"zipcode\": \"6229 EN\" }," +
                                 "\"pizzas\": [{ \"pizza_id\": " + toPost[0] + " }]" +
                                 ", \"note\": \"No Onions\" }";
+
+
+                                "\"delivery_address\": " +
+                                    " { \"street\": "+ toPost[3] +", " +
+                                    "\"city\": "+ toPost[4] +"," +
+                                    "\"country\": "+ toPost[5] +", " +
+                                    "\"zipcode\": "+ toPost[6] +" }," +
  */
 
             StringBuffer response = new StringBuffer();
@@ -61,8 +68,6 @@ String jsonText =   "{" +
                 os.write(input, 0, input.length);
             }
 
-
-            System.out.println(connect.getOutputStream().toString());
 
             int status = connect.getResponseCode();
 
@@ -76,12 +81,10 @@ String jsonText =   "{" +
                 }
                 read.close();
             } else {
-                read = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                while ((ln = read.readLine()) != null) {
-                    response.append(ln);
-                }
+                return "Your order was submitted successfully.";
+
             }
-            System.out.println(response.toString());
+
             return response.toString();
 
 

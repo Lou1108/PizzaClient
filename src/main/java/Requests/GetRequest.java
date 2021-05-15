@@ -58,6 +58,10 @@ public class GetRequest {
 
 
     public String parsePizzaMenu(String response){
+        if (response.charAt(0) != '['){
+            return response;
+        }
+
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         for (int i = 0; i<pizzas.length();i++){
@@ -73,9 +77,13 @@ public class GetRequest {
                     + "\n" + "vegeterian: " + veg + "\n" + "price: " +price + "\n" + "\n");
         }
         return output;
+
     }
 
     public String parsePizzaInfo(String response){
+        if (response.charAt(0) != '['){
+            return response;
+        }
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         for (int i = 0; i<pizzas.length();i++){
@@ -100,6 +108,9 @@ public class GetRequest {
     }
 
     public String parseOrderHistory(String response){
+        if (response.charAt(0) != '['){
+            return response;
+        }
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         for (int i = 0; i<pizzas.length();i++){

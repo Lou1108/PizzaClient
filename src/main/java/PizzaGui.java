@@ -45,7 +45,7 @@ public class PizzaGui extends JFrame
         frame.add(layout);
 
         //setting the frame options
-        frame.setSize(800, 700);
+        frame.setSize(850, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -239,6 +239,7 @@ public class PizzaGui extends JFrame
         panel.add(city); panel.add(input_city);
         panel.add(country); panel.add(input_country);
         panel.add(zipCode); panel.add(input_zip);
+        panel.add(notes); panel.add(input_note);
         panel.add(infoButton);
 
         return panel;
