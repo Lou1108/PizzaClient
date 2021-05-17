@@ -20,7 +20,7 @@ public class PostRequests {
 
 
         try {
-            URL url = new URL("http://localhost:8080/api/order");
+            URL url = new URL("https://safe-savannah-12795.herokuapp.com/api/order");
             connect = (HttpURLConnection) url.openConnection();
             connect.setRequestMethod("POST");
             connect.setRequestProperty("Content-Type", "application/json");

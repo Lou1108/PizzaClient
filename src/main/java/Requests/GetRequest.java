@@ -18,8 +18,8 @@ public class GetRequest {
         try {
 
             StringBuffer response = new StringBuffer();
-            String host = "http://localhost:8080/api/" + toGet;
-            URL url = new URL(host);
+           // String host = "http://localhost:8080/api/" + toGet;
+            URL url = new URL("https://safe-savannah-12795.herokuapp.com/api/" + toGet);
             connect = (HttpURLConnection) url.openConnection();
 
             //GET

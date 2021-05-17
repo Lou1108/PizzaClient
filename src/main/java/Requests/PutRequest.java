@@ -18,7 +18,7 @@ public class PutRequest {
     public String put(String id) {
         try {
             StringBuffer response = new StringBuffer();
-            String host = "http://localhost:8080/api/order/cancel/" + id;
+            String host = "https://safe-savannah-12795.herokuapp.com/api/order/cancel/" + id;
             System.out.println(host);
             URL url = new URL(host);
             connect = (HttpURLConnection) url.openConnection();
