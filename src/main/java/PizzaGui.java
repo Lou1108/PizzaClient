@@ -9,11 +9,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 
 public class PizzaGui extends JFrame
 {
     //    private String url = "https://safe-savannah-12795.herokuapp.com/api/";
+    private static long customerID = 0;
 
     public PizzaGui()
     {
@@ -54,6 +56,7 @@ public class PizzaGui extends JFrame
         //setting the frame options
         frame.setSize(800, 550);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }
@@ -127,22 +130,18 @@ public class PizzaGui extends JFrame
 
     JPanel orderHistory(){
         JPanel panel = new JPanel();
-        JLabel use = new JLabel("Enter your customer id to see previous orders: ");
-        JTextField userInput = new JTextField(10);
 
-        JButton infoButton = new JButton("Get order history");
+        JButton infoButton = new JButton("See previous orders");
+            Font log = new Font("TIMESROMAN", Font.BOLD, 15);
+            infoButton.setFont(log);
 
         GetRequest request = new GetRequest();
         infoButton.addActionListener(e -> {
-            String input = userInput.getText();
-            String output = request.get("order/" + input);
+            String output = request.get("order/" + customerID);
             JOptionPane.showMessageDialog(null, request.parseOrderHistory(output));
         });
 
-        panel.add(use);
-        panel.add(userInput);
         panel.add(infoButton);
-
         return panel;
     }
 
@@ -188,8 +187,8 @@ public class PizzaGui extends JFrame
         JLabel payment = new JLabel("How do you want to pay? ");
         JTextField input_pay = new JTextField(10);
 
-        JLabel id = new JLabel("Enter your customer id: ");
-        JTextField input_id = new JTextField(10);
+        //JLabel id = new JLabel("Enter your customer id: ");
+       // JTextField input_id = new JTextField(10);
 
         JLabel address = new JLabel("Enter your address: ");
         JLabel street = new JLabel("street name: ");
@@ -210,7 +209,7 @@ public class PizzaGui extends JFrame
         PostRequests request = new PostRequests();
         infoButton.addActionListener(e -> {
 
-            String [] input = { input_id.getText(),
+            String [] input = { String.valueOf(customerID),
                                 String.valueOf(buttons.getSelection().getActionCommand()),
                                 input_pay.getText(),
                                 input_street.getText(),
@@ -230,13 +229,14 @@ public class PizzaGui extends JFrame
         panel.add(pizzas); panel.add(input_pizzas);
         panel.add(takeaway);  panel.add(new JLabel("")); panel.add(buttonYes); panel.add(buttonNo);
         panel.add(payment); panel.add(input_pay);
-        panel.add(id); panel.add(input_id);
+        //panel.add(id); panel.add(input_id);
         panel.add(address); panel.add(new JLabel("")); panel.add(street); panel.add(input_street);
         panel.add(city); panel.add(input_city);
         panel.add(country); panel.add(input_country);
         panel.add(zipCode); panel.add(input_zip);
         panel.add(notes); panel.add(input_note);
         panel.add(infoButton);
+        customerID++;
 
         return panel;
     }

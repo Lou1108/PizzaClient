@@ -85,6 +85,7 @@ public class GetRequest {
             return response;
         }
         JSONArray pizzas = new JSONArray(response);
+
         String output = "";
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);

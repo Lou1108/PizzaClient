@@ -61,16 +61,12 @@ public class PutRequest {
            return response;
        }
 
-      // JSONArray pizzas = new JSONArray(response);
-       String output = "";
-      // for (int i = 0; i<pizzas.length();i++) {
+       String output = "The order with ID ";
            JSONObject pizza = new JSONObject(response);
 
-           //TODO             int pizzaId = pizza.getInt("pizza_id");
            int orderId = pizza.getInt("id");
            String status = pizza.getString("status");
-           output +=  "ID: " + orderId + " \n" + "status: " +status;
-      // }
+           output += orderId + " \n" + " was successfully " +status;
        return output;
    }
 

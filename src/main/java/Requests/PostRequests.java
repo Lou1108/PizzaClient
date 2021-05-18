@@ -27,10 +27,8 @@ public class PostRequests {
             connect.setDoOutput(true);
 
             String[] pizzas = toPost[7].split(" ");
-            System.out.println(toPost[7]);
             String pizzaList = "";
             for(int i=0; i<pizzas.length-1;i++){
-                System.out.println(pizzas[i]);
                 pizzaList += "{ \"pizza_id\": " + pizzas[i] + " },";
             }
                 pizzaList += "{ \"pizza_id\": " + pizzas[pizzas.length-1] + " }";
@@ -64,11 +62,18 @@ public class PostRequests {
                 read = new BufferedReader(new InputStreamReader(connect.getErrorStream()));
                 while ((ln = read.readLine()) != null) {
                     response.append(ln);
+                    System.out.println("ERROR");
                 }
                 read.close();
             } else {
-                return "Your order was submitted successfully.";
+                read = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+                while ((ln = read.readLine()) != null) {
+                    response.append(ln);
+                }
+                //return "Your order was submitted successfully.";
             }
+            System.out.println(status);
+            return parsePost(response.toString());
 
 
         } catch (IOException malformedURLException) {
@@ -78,29 +83,28 @@ public class PostRequests {
         return "POST Request failed";
     }
 
-   /* String parsePost(String response){
-        if (response.charAt(0) != '['){
-            System.out.println(response);
+    String parsePost(String response){
+        if (response.charAt(0) != '{'){
             return response;
         }
-        JSONArray pizzas = new JSONArray(response);
+
+        System.out.println(response);
+        JSONObject pizza = new JSONObject(response);
+
+        int id = pizza.getInt("id");
+       // String status = pizza.getString("delivery_time");
+
+
         String output = "Your order was submitted successfully." + "\n";
-        for (int i = 0; i<pizzas.length();i++){
-            JSONObject pizza = pizzas.getJSONObject(i);
 
-            String order= pizza.getString("order");
-            String time = pizza.getString("orderedAt");
-            String status = pizza.getString("delivery_time");
+        output += ("Your order number is : " + id + "\n" +
+                "The delivery time is : " + "status" + "\n"  +"\n");
 
-
-
-            output += ("order: " + order + "\n" + "ordered_at: " +time
-                    + "\n" + "status: " + status + "\n"  +"\n");
-        }
-        System.out.println(output);
+        // System.out.println(output);
+        System.out.println("out" + output);
         return output;
     }
-    */
+
 
 }
 
