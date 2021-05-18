@@ -14,9 +14,12 @@ import javax.swing.border.Border;
 public class PizzaGui extends JFrame
 {
     //    private String url = "https://safe-savannah-12795.herokuapp.com/api/";
+    private long customerID = 1;
 
     public PizzaGui()
     {
+        System.out.println("Your Customer ID is: " + customerID);
+
         JFrame frame = new JFrame("Pizza order");
 
         //title for the frame
@@ -52,8 +55,9 @@ public class PizzaGui extends JFrame
         frame.add(layout);
 
         //setting the frame options
-        frame.setSize(800, 550);
+        frame.setSize(850, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }
