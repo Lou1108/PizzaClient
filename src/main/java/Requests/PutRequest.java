@@ -1,8 +1,5 @@
 package Requests;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,15 +12,15 @@ public class PutRequest {
     private final int TIMEOUT = 5000;
 
     //return message or error code?
-    public String put(String id) {
+    public void put(String id) {
         try {
             StringBuffer response = new StringBuffer();
-            String host = "https://safe-savannah-12795.herokuapp.com/api/order/cancel/" + id;
+            String host = "http://localhost:8080/api/order/cancel/" + id;
             System.out.println(host);
             URL url = new URL(host);
             connect = (HttpURLConnection) url.openConnection();
 
-            //PUT
+            //GET
             connect.setRequestMethod("PUT");
             connect.setConnectTimeout(TIMEOUT);
             connect.setReadTimeout(TIMEOUT);
@@ -45,34 +42,13 @@ public class PutRequest {
                     response.append(ln);
                 }
             }
-            return parsePut(response.toString());
+            System.out.println(response.toString());
 
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             e.printStackTrace();
         } finally {
             connect.disconnect();
         }
-        return "PUT Request Failed";
     }
-
-
-   public String parsePut(String response){
-       if (response.charAt(0) != '{'){
-           return response;
-       }
-
-      // JSONArray pizzas = new JSONArray(response);
-       String output = "";
-      // for (int i = 0; i<pizzas.length();i++) {
-           JSONObject pizza = new JSONObject(response);
-
-           //TODO             int pizzaId = pizza.getInt("pizza_id");
-           int orderId = pizza.getInt("id");
-           String status = pizza.getString("status");
-           output +=  "ID: " + orderId + " \n" + "status: " +status;
-      // }
-       return output;
-   }
-
-
 }

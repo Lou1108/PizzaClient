@@ -1,7 +1,6 @@
 import Requests.GetRequest;
 import Requests.PostRequests;
 import Requests.PutRequest;
-import org.w3c.dom.ls.LSOutput;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,7 +8,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 public class PizzaGui extends JFrame
@@ -17,12 +21,9 @@ public class PizzaGui extends JFrame
     JTextField userInput;
     JPanel layout;
     JFrame frame ;
-    //    private String url = "https://safe-savannah-12795.herokuapp.com/api/";
 
 
-
-    public PizzaGui()
-    {
+    public PizzaGui() {
         frame = new JFrame();
 
         //title for the frame
@@ -47,7 +48,7 @@ public class PizzaGui extends JFrame
         frame.add(layout);
 
         //setting the frame options
-        frame.setSize(850, 800);
+        frame.setSize(800, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -55,19 +56,17 @@ public class PizzaGui extends JFrame
 
 
     JPanel pizzaInformation() {
-        GetRequest request = new GetRequest();
         JPanel info = new JPanel();
         JLabel use = new JLabel("Enter a pizza id: ");
-
-        JComboBox<String> user_1 = new JComboBox<>(request.pizzaIDs());
+        JTextField user_1 = new JTextField(10);
 
         JButton infoButton = new JButton("Get Pizza Information");
 
+        GetRequest request = new GetRequest();
         infoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] word = String.valueOf(user_1.getSelectedItem()).split(" ");
-                String input = word[1];
+                String input = user_1.getText();
                 System.out.println("pizza/" + input);
                 String output = request.get("pizza/" + input);
                 JOptionPane.showMessageDialog(null, request.parsePizzaInfo(output));
@@ -163,8 +162,9 @@ public class PizzaGui extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 String input = userIn.getText();
-                String out = request.put(input);
-                JOptionPane.showMessageDialog(null, out);
+                request.put("order/" + input);
+                // TODO change output to give back response
+                JOptionPane.showMessageDialog(null, "Your order was cancelled.");
             }
         });
 
@@ -179,36 +179,20 @@ public class PizzaGui extends JFrame
         JPanel panel = new JPanel();
         //TODO make it more than one pizza
         JLabel pizzas = new JLabel("Enter the pizza ids: ");
-        JTextField input_pizzas = new JTextField(10);
+        JTextField input_1 = new JTextField(10);
 
         JLabel takeaway = new JLabel("Do you want takeaway? ");
-        ButtonGroup buttons = new ButtonGroup();
-            JRadioButton buttonYes = new JRadioButton("Yes", true);
-                buttonYes.setActionCommand("true");
-            JRadioButton buttonNo = new JRadioButton("No", false);
-                buttonNo.setActionCommand("false");
-            buttons.add(buttonYes);
-            buttons.add(buttonNo);
+        JTextField input_2 = new JTextField(10);
 
         JLabel payment = new JLabel("How do you want to pay? ");
-        JTextField input_pay = new JTextField(10);
+        JTextField input_3 = new JTextField(10);
 
         JLabel id = new JLabel("Enter your customer id: ");
-        JTextField input_id = new JTextField(10);
+        JTextField input_4 = new JTextField(10);
 
-        JLabel address = new JLabel("Enter your address: ");
-        JLabel street = new JLabel("street name: ");
-        JTextField input_street = new JTextField(10);
-        JLabel city = new JLabel("city: ");
-        JTextField input_city = new JTextField(10);
-        JLabel country = new JLabel("country: ");
-        JTextField input_country = new JTextField(10);
-        JLabel zipCode = new JLabel("zipCode: ");
-        JTextField input_zip = new JTextField(10);
+        JLabel adress = new JLabel("Enter your address: ");
+        JTextField input_5 = new JTextField(50);
 
-
-        JLabel notes = new JLabel("Notes: ");
-        JTextField input_note = new JTextField(10);
 
         JButton infoButton = new JButton("Submit order");
 
@@ -217,33 +201,25 @@ public class PizzaGui extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String [] input = { input_id.getText(),
-                                    String.valueOf(buttons.getSelection().getActionCommand()),
-                                    input_pay.getText(),
-                                    input_street.getText(),
-                                    input_city.getText(),
-                                    input_country.getText(),
-                                    input_zip.getText(),
-                                    input_pizzas.getText(),
-                                    input_note.getText()  };
+                String [] input = { input_1.getText(),
+                        input_2.getText(),
+                        input_3.getText(),
+                        input_4.getText(),
+                        input_5.getText()};
 
 
-                String out = request.post(input);
-
-                JOptionPane.showMessageDialog(null, out);
+                request.post(input);
+                // TODO change output to give back response
+                JOptionPane.showMessageDialog(null, "Your Order was submitted");
             }
         });
 
 
-        panel.add(pizzas); panel.add(input_pizzas);
-        panel.add(takeaway);  panel.add(buttonYes); panel.add(buttonNo);
-        panel.add(payment); panel.add(input_pay);
-        panel.add(id); panel.add(input_id);
-        panel.add(address); panel.add(street); panel.add(input_street);
-        panel.add(city); panel.add(input_city);
-        panel.add(country); panel.add(input_country);
-        panel.add(zipCode); panel.add(input_zip);
-        panel.add(notes); panel.add(input_note);
+        panel.add(pizzas); panel.add(input_1);
+        panel.add(takeaway);  panel.add(input_2);
+        panel.add(payment); panel.add(input_3);
+        panel.add(id); panel.add(input_4);
+        panel.add(adress); panel.add(input_5);
         panel.add(infoButton);
 
         return panel;
