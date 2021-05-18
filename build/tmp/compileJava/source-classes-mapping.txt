@@ -1,16 +1,10 @@
 Requests/PutRequest.java
  Requests.PutRequest
-PizzaGui.java
- PizzaGui
- PizzaGui$1
- PizzaGui$2
- PizzaGui$3
- PizzaGui$4
- PizzaGui$5
- PizzaGui$6
-Main.java
- Main
-Requests/GetRequest.java
- Requests.GetRequest
 Requests/PostRequests.java
  Requests.PostRequests
+Requests/GetRequest.java
+ Requests.GetRequest
+PizzaGui.java
+ PizzaGui
+Main.java
+ Main

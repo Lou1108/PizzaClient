@@ -89,7 +89,6 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            //TODO             int pizzaId = pizza.getInt("pizza_id");
             int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegeterian");
