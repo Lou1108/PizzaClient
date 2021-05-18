@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 public class PizzaGui extends JFrame
 {
     //    private String url = "https://safe-savannah-12795.herokuapp.com/api/";
-    private static long customerID = 0;
+    private static int customerID = 1233456788;
 
     public PizzaGui()
     {
@@ -38,9 +38,11 @@ public class PizzaGui extends JFrame
         top.add(pizzaMenu());
         layout.add(top, BorderLayout.NORTH);
 
+
         JPanel left = new JPanel(new FlowLayout(FlowLayout.CENTER));
             left.setBorder(BorderFactory.createLineBorder(new Color(37, 150, 190), 5));
             left.add(postOrder());
+
 
         JPanel right = new JPanel(new GridLayout(4,1));
             right.setBorder(BorderFactory.createLineBorder(new Color(37, 150, 190), 5));
@@ -48,6 +50,7 @@ public class PizzaGui extends JFrame
             right.add(getDeliveryTime());
             right.add(cancelOrder());
             right.add(orderHistory());
+
 
         center.add(left); center.add(right);
         layout.add(center, BorderLayout.CENTER);
@@ -74,7 +77,7 @@ public class PizzaGui extends JFrame
         infoButton.addActionListener(e -> {
             String[] word = String.valueOf(user_1.getSelectedItem()).split(" ");
             String input = word[1];
-            System.out.println("pizza/" + input);
+            //System.out.println("pizza/" + input);
             String output = request.get("pizza/" + input);
             JOptionPane.showMessageDialog(null, request.parsePizzaInfo(output));
         });
@@ -129,11 +132,15 @@ public class PizzaGui extends JFrame
     }
 
     JPanel orderHistory(){
+
         JPanel panel = new JPanel();
+        JLabel use = new JLabel("Enter your customer id to see previous orders: ");
+         JTextField userInput = new JTextField(10);
 
         JButton infoButton = new JButton("See previous orders");
             Font log = new Font("TIMESROMAN", Font.BOLD, 15);
             infoButton.setFont(log);
+
 
         GetRequest request = new GetRequest();
         infoButton.addActionListener(e -> {
@@ -141,6 +148,8 @@ public class PizzaGui extends JFrame
             JOptionPane.showMessageDialog(null, request.parseOrderHistory(output));
         });
 
+        panel.add(use);
+        panel.add(userInput);
         panel.add(infoButton);
         return panel;
     }
