@@ -18,8 +18,8 @@ public class GetRequest {
         try {
 
             StringBuffer response = new StringBuffer();
-            String host = "http://localhost:8080/api/" + toGet;
-            URL url = new URL(host);
+           // String host = "http://localhost:8080/api/" + toGet;
+            URL url = new URL("https://safe-savannah-12795.herokuapp.com/api/" + toGet);
             connect = (HttpURLConnection) url.openConnection();
 
             //GET
@@ -27,7 +27,6 @@ public class GetRequest {
             connect.setConnectTimeout(TIMEOUT);
             connect.setReadTimeout(TIMEOUT);
 
-            System.out.println(connect.getResponseCode());
             int status = connect.getResponseCode();
 
             String ln;
@@ -59,6 +58,10 @@ public class GetRequest {
 
 
     public String parsePizzaMenu(String response){
+        if (response.charAt(0) != '['){
+            return response;
+        }
+
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         for (int i = 0; i<pizzas.length();i++){
@@ -68,15 +71,19 @@ public class GetRequest {
             int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegeterian");
-            int price = pizza.getInt("price");
+            double price = pizza.getDouble("price");
 
             output += ("PizzaID: " + pizzaId + "\n" + "name: " + name
                     + "\n" + "vegeterian: " + veg + "\n" + "price: " +price + "\n" + "\n");
         }
         return output;
+
     }
 
     public String parsePizzaInfo(String response){
+        if (response.charAt(0) != '['){
+            return response;
+        }
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         for (int i = 0; i<pizzas.length();i++){
@@ -86,7 +93,7 @@ public class GetRequest {
             int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegeterian");
-            int price = pizza.getInt("price");
+            double price = pizza.getDouble("price");
             JSONArray toppings = pizza.getJSONArray("toppings");
             String top = "";
             for(int j = 0; j < toppings.length();j++){
@@ -101,6 +108,9 @@ public class GetRequest {
     }
 
     public String parseOrderHistory(String response){
+        if (response.charAt(0) != '['){
+            return response;
+        }
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         for (int i = 0; i<pizzas.length();i++){
@@ -111,12 +121,9 @@ public class GetRequest {
             //TODO             int pizzaId = pizza.getInt("customer_id");
             int customer = pizza.getInt("customerId");
             String status = pizza.getString("status");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             String time = pizza.getString("orderedAt");
             boolean takeaway = pizza.getBoolean("takeaway");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             String payment = pizza.getString("paymentType");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             JSONObject delivery = pizza.getJSONObject("deliveryAddress");
 
 
@@ -130,6 +137,24 @@ public class GetRequest {
 
     }
 
+    public String[] pizzaIDs(){
+        String response = get("pizza");
+        if (response.charAt(0) != '['){
+            return new String[] {};
+        }
+
+        JSONArray pizzas = new JSONArray(response);
+        String[] output = new String[pizzas.length()];
+        for (int i = 0; i<pizzas.length();i++) {
+            JSONObject pizza = pizzas.getJSONObject(i);
+
+            //TODO             int pizzaId = pizza.getInt("pizza_id");
+            int pizzaId = pizza.getInt("id");
+            String name = pizza.getString("name");
+            output[i] =  "ID " + pizzaId + " : " +name;
+        }
+        return output;
+    }
 }
 
 
