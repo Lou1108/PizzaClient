@@ -1,6 +1,5 @@
 package Requests;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -14,7 +13,11 @@ public class PutRequest {
     private HttpURLConnection connect;
     private final int TIMEOUT = 5000;
 
-    //return message or error code?
+    /**
+     * initializes the APIs put request
+     * @param host the url
+     * @return the error message or response from completing the request
+     */
     public String put(String host) {
         try {
             StringBuffer response = new StringBuffer();
@@ -54,7 +57,10 @@ public class PutRequest {
         return "PUT Request Failed";
     }
 
-
+    /**
+     * @param response output message shown to the user
+     * @return the output message shown to the user
+     */
    public String parsePut(String response){
        if (response.charAt(0) != '{'){
            return response;

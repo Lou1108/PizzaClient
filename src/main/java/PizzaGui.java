@@ -1,15 +1,12 @@
 import Requests.GetRequest;
 import Requests.PostRequests;
 import Requests.PutRequest;
-import org.w3c.dom.ls.LSOutput;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 
 public class PizzaGui extends JFrame
@@ -21,6 +18,14 @@ public class PizzaGui extends JFrame
 
     public PizzaGui()
     {
+        //get URL from user
+        //getURL();
+        pizzaOrder();
+
+    }
+
+
+    public void pizzaOrder(){
         JFrame frame = new JFrame("Pizza order");
 
         //title for the frame
@@ -42,16 +47,16 @@ public class PizzaGui extends JFrame
 
 
         JPanel left = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            left.setBorder(BorderFactory.createLineBorder(new Color(37, 150, 190), 5));
-            left.add(postOrder());
+        left.setBorder(BorderFactory.createLineBorder(new Color(37, 150, 190), 5));
+        left.add(postOrder());
 
 
         JPanel right = new JPanel(new GridLayout(4,1));
-            right.setBorder(BorderFactory.createLineBorder(new Color(37, 150, 190), 5));
-            right.add(pizzaInformation());
-            right.add(getDeliveryTime());
-            right.add(cancelOrder());
-            right.add(orderHistory());
+        right.setBorder(BorderFactory.createLineBorder(new Color(37, 150, 190), 5));
+        right.add(pizzaInformation());
+        right.add(getDeliveryTime());
+        right.add(cancelOrder());
+        right.add(orderHistory());
 
 
         center.add(left); center.add(right);
@@ -63,9 +68,7 @@ public class PizzaGui extends JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
     }
-
 
     JPanel pizzaInformation() {
         GetRequest request = new GetRequest();
@@ -120,7 +123,6 @@ public class PizzaGui extends JFrame
         infoButton.addActionListener(e -> {
             String input = userInput.getText();
             String output = request.get(url  + "order/deliverytime/" + input);
-            System.out.println(output);
             JOptionPane.showMessageDialog(null, request.parseDelTime(output));
         });
 
@@ -249,5 +251,38 @@ public class PizzaGui extends JFrame
 
         return panel;
     }
+
+    /**
+     * can be used to retrieve the url for the Pizza API from the user
+     */
+    void getURL(){
+        JFrame frame = new JFrame("URL");
+        //title for the frame
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel titleName = new JLabel("Please enter the url: ");
+        titleName.setForeground(new Color(37, 150, 190));
+        Font f = new Font("TIMESROMAN", Font.BOLD, 30);
+        titleName.setFont(f);
+        panel.add(titleName);
+
+        JTextField text = new JTextField(30);
+        JButton button = new JButton("OK");
+        button.addActionListener(e -> {
+            url = text.getText();
+            frame.setVisible(false);
+            pizzaOrder();
+        });
+
+         panel.add(text);
+         panel.add(button);
+         frame.add(panel);
+
+        //setting the frame options
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
 }
 

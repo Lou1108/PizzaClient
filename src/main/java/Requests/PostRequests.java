@@ -62,7 +62,6 @@ public class PostRequests {
                 read = new BufferedReader(new InputStreamReader(connect.getErrorStream()));
                 while ((ln = read.readLine()) != null) {
                     response.append(ln);
-                    System.out.println("ERROR");
                 }
                 read.close();
             } else {
@@ -72,7 +71,6 @@ public class PostRequests {
                 }
                 //return "Your order was submitted successfully.";
             }
-            System.out.println(status);
             return parsePost(response.toString());
 
 
@@ -88,7 +86,6 @@ public class PostRequests {
             return response;
         }
 
-        System.out.println(response);
         JSONObject pizza = new JSONObject(response);
 
         int id = pizza.getInt("id");
@@ -98,9 +95,8 @@ public class PostRequests {
         String output = "Your order was submitted successfully." + "\n";
 
         output += ("Your order number is : " + id + "\n" +
-                "The delivery time is : " + "status" + "\n"  +"\n");
+                "The delivery time is : " + "status" + "\n"  +"\n");    //TODO add del time
 
-        // System.out.println(output);
         System.out.println("out" + output);
         return output;
     }
