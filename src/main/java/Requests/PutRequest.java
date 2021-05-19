@@ -15,11 +15,10 @@ public class PutRequest {
     private final int TIMEOUT = 5000;
 
     //return message or error code?
-    public String put(String id) {
+    public String put(String host) {
         try {
             StringBuffer response = new StringBuffer();
-            String host = "https://safe-savannah-12795.herokuapp.com/api/order/cancel/" + id;
-            System.out.println(host);
+            //String host = "https://safe-savannah-12795.herokuapp.com/api/order/cancel/" + id;
             URL url = new URL(host);
             connect = (HttpURLConnection) url.openConnection();
 

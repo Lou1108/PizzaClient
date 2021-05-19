@@ -14,7 +14,9 @@ import javax.swing.border.LineBorder;
 
 public class PizzaGui extends JFrame
 {
-    //    private String url = "https://safe-savannah-12795.herokuapp.com/api/";
+     private String url = "https://safe-savannah-12795.herokuapp.com/api/";
+    // private String url = "https://lozzio-pizza.herokuapp.com/api/v1/";
+
     private static int customerID = 1233456788;
 
     public PizzaGui()
@@ -70,15 +72,15 @@ public class PizzaGui extends JFrame
         JPanel info = new JPanel();
         JLabel use = new JLabel("Enter a pizza id: ");
 
-        JComboBox<String> user_1 = new JComboBox<>(request.pizzaIDs());
+        JComboBox<String> user_1 = new JComboBox<>(request.pizzaIDs(url + "pizza"));
 
         JButton infoButton = new JButton("Get Pizza Information");
 
         infoButton.addActionListener(e -> {
             String[] word = String.valueOf(user_1.getSelectedItem()).split(" ");
             String input = word[1];
-            //System.out.println("pizza/" + input);
-            String output = request.get("pizza/" + input);
+
+            String output = request.get(url + "pizza/" + input);
             JOptionPane.showMessageDialog(null, request.parsePizzaInfo(output));
         });
 
@@ -100,7 +102,7 @@ public class PizzaGui extends JFrame
 
         GetRequest request = new GetRequest();
         menu.addActionListener(e -> {
-            String output = request.get("pizza");
+            String output = request.get(url + "pizza");
             JOptionPane.showMessageDialog(null, request.parsePizzaMenu(output));
         });
 
@@ -117,11 +119,9 @@ public class PizzaGui extends JFrame
         GetRequest request = new GetRequest();
         infoButton.addActionListener(e -> {
             String input = userInput.getText();
-            System.out.println("heyy");
-            System.out.println("INOUT: " + input);
-            String output = request.get("order/deliverytime/" + input);
+            String output = request.get(url  + "order/deliverytime/" + input);
             System.out.println(output);
-            JOptionPane.showMessageDialog(null, output); //TODO request.parseOrderHistory(output)
+            JOptionPane.showMessageDialog(null, request.parseDelTime(output));
         });
 
         panel.add(use);
@@ -134,8 +134,8 @@ public class PizzaGui extends JFrame
     JPanel orderHistory(){
 
         JPanel panel = new JPanel();
-        JLabel use = new JLabel("Enter your customer id to see previous orders: ");
-         JTextField userInput = new JTextField(10);
+       // JLabel use = new JLabel("Enter your customer id to see previous orders: ");
+       //  JTextField userInput = new JTextField(10);
 
         JButton infoButton = new JButton("See previous orders");
             Font log = new Font("TIMESROMAN", Font.BOLD, 15);
@@ -144,12 +144,12 @@ public class PizzaGui extends JFrame
 
         GetRequest request = new GetRequest();
         infoButton.addActionListener(e -> {
-            String output = request.get("order/" + customerID);
+            String output = request.get(url + "order/" + customerID);
             JOptionPane.showMessageDialog(null, request.parseOrderHistory(output));
         });
 
-        panel.add(use);
-        panel.add(userInput);
+      //  panel.add(use);
+       // panel.add(userInput);
         panel.add(infoButton);
         return panel;
     }
@@ -164,7 +164,7 @@ public class PizzaGui extends JFrame
         PutRequest request = new PutRequest();
         infoButton.addActionListener(e -> {
             String input = userIn.getText();
-            String out = request.put(input);
+            String out = request.put(url +"order/cancel/" + input);
             JOptionPane.showMessageDialog(null, out);
         });
 
@@ -229,7 +229,7 @@ public class PizzaGui extends JFrame
                                 input_note.getText()  };
 
 
-            String out = request.post(input);
+            String out = request.post(url + "order", input);
 
             JOptionPane.showMessageDialog(null, out);
         });

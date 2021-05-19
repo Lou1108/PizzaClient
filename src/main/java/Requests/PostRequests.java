@@ -16,11 +16,11 @@ public class PostRequests {
 
     private HttpURLConnection connect;
 
-    public String post(String[] toPost) {
+    public String post(String host, String[] toPost) {
 
 
         try {
-            URL url = new URL("https://safe-savannah-12795.herokuapp.com/api/order");
+            URL url = new URL(host);
             connect = (HttpURLConnection) url.openConnection();
             connect.setRequestMethod("POST");
             connect.setRequestProperty("Content-Type", "application/json");
