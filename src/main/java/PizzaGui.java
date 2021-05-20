@@ -183,7 +183,7 @@ public class PizzaGui extends JFrame
         JLabel title = new JLabel("New Order: "); title.setFont(f);
         title.setForeground(Color.BLACK);
         panel.add(title); panel.add(new JLabel(""));
-        JLabel pizzas = new JLabel("Enter the pizza ids: ");
+        JLabel pizzas = new JLabel("Enter the pizza ids separated by spaces: ");
         JTextField input_pizzas = new JTextField(10);
 
         JLabel takeaway = new JLabel("Do you want takeaway? ");
@@ -219,6 +219,7 @@ public class PizzaGui extends JFrame
 
         PostRequests request = new PostRequests();
         infoButton.addActionListener(e -> {
+
 
             String [] input = { String.valueOf(customerID),
                                 String.valueOf(buttons.getSelection().getActionCommand()),

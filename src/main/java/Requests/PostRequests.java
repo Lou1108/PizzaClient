@@ -1,15 +1,9 @@
 package Requests;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
-
 
 
 public class PostRequests {
@@ -69,7 +63,6 @@ public class PostRequests {
                 while ((ln = read.readLine()) != null) {
                     response.append(ln);
                 }
-                //return "Your order was submitted successfully.";
             }
             return parsePost(response.toString());
 
@@ -89,15 +82,9 @@ public class PostRequests {
         JSONObject pizza = new JSONObject(response);
 
         int id = pizza.getInt("id");
-       // String status = pizza.getString("delivery_time");
-
-
         String output = "Your order was submitted successfully." + "\n";
+        output += ("Your order number is : " + id);
 
-        output += ("Your order number is : " + id + "\n" +
-                "The delivery time is : " + "status" + "\n"  +"\n");    //TODO add del time
-
-        System.out.println("out" + output);
         return output;
     }
 

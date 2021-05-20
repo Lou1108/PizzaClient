@@ -97,7 +97,7 @@ public class GetRequest {
             JSONArray toppings = pizza.getJSONArray("toppings");
             String top = "";
             for(int j = 0; j < toppings.length();j++){
-                top += toppings.getString(i);
+                top += toppings.getString(j) + ", ";
             }
 
 
@@ -137,8 +137,6 @@ public class GetRequest {
     }
 
     public String[] pizzaIDs(String url){
-
-        System.out.println(url);
 
         String response = get(url);
         if (response.charAt(0) != '['){
