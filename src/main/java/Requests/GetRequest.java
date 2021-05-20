@@ -154,13 +154,14 @@ public class GetRequest {
         if (response.charAt(0) != '['){
             return "The order was already canceled or delivered.";
         }
+        System.out.println(response);
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         int orderId = 0; String delTime="";
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
-            if(pizza.toMap().containsKey("pizza_id")){
-                orderId = pizza.getInt("pizza_id");
+            if(pizza.toMap().containsKey("id")){
+                orderId = pizza.getInt("id");
             }
             if(pizza.toMap().containsKey("delivery_time")){
                 delTime = pizza.getString("delivery_time");
