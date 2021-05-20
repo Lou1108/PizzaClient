@@ -116,17 +116,13 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            //TODO             int pizzaId = pizza.getInt("pizza_id");
             int pizzaId = pizza.getInt("id");
-            //TODO             int pizzaId = pizza.getInt("customer_id");
             int customer = pizza.getInt("customerId");
             String status = pizza.getString("status");
             String time = pizza.getString("orderedAt");
             boolean takeaway = pizza.getBoolean("takeaway");
             String payment = pizza.getString("paymentType");
             JSONObject delivery = pizza.getJSONObject("deliveryAddress");
-
-
 
             output += ("PizzaID: " + pizzaId + "\n" + "customer_id " + customer
                     + "\n" + "status: " + status + "\n" + "ordered_at: " +time
@@ -147,7 +143,7 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++) {
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("id"); // "pizza_id" TODO for our program id is needed, for others' pizza_id
+            int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             output[i] =  "ID " + pizzaId + " : " +name;
         }
