@@ -23,20 +23,20 @@ public class PostRequests {
             String[] pizzas = toPost[7].split(" ");
             String pizzaList = "";
             for(int i=0; i<pizzas.length-1;i++){
-                pizzaList += "{ \"pizza_id\": " + pizzas[i] + " },";
+                pizzaList += "{ \"pizza_id\": " + pizzas[i] + ", \"note\": \"" + toPost[8] + "\" },";
             }
-                pizzaList += "{ \"pizza_id\": " + pizzas[pizzas.length-1] + " }";
+                pizzaList += "{ \"pizza_id\": " + pizzas[pizzas.length-1] + ", \"note\": \"" + toPost[8] + "\" }";
 
-            String jsonText =   "{\"customerId\": "+ toPost[0] + ","+
+            String jsonText =   "{ \"pizzas\": [ " + pizzaList +" ],"+
                                 "\"takeaway\": "+ toPost[1] +", " +
                                 "\"payment_type\": \""+ toPost[2] +"\"," +
+                                "\"customer_id\": "+ toPost[0] + ","+
                                 "\"delivery_address\": " +
                                     " { \"street\": \""+ toPost[3] +"\", " +
                                     "\"city\": \""+ toPost[4] +"\", " +
                                     "\"country\": \""+ toPost[5] +"\", " +
-                                    "\"zipcode\": "+ toPost[6] +" }," +
-                                "\"pizzas\": [ " + pizzaList +" ]" +
-                                ", \"note\": \""+toPost[8]+"\" }";
+                                    "\"zipcode\": \""+ toPost[6] +"\" }" +
+                                " }";
 
 
             StringBuffer response = new StringBuffer();
@@ -66,6 +66,8 @@ public class PostRequests {
                 }
                 return parsePost(response.toString());
             }
+
+
 
         } catch (IOException malformedURLException) {
             malformedURLException.printStackTrace();

@@ -116,13 +116,13 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("pizza_id");
-            int customer = pizza.getInt("customerId");
+            int pizzaId = pizza.getInt("id");
+            int customer = pizza.getInt("customer_id");
             String status = pizza.getString("status");
-            String time = pizza.getString("orderedAt");
+            String time = pizza.getString("ordered_at");
             boolean takeaway = pizza.getBoolean("takeaway");
-            String payment = pizza.getString("paymentType");
-            JSONObject delivery = pizza.getJSONObject("deliveryAddress");
+            String payment = pizza.getString("payment_type");
+            JSONObject delivery = pizza.getJSONObject("delivery_address");
 
             output += ("PizzaID: " + pizzaId + "\n" + "customer_id " + customer
                     + "\n" + "status: " + status + "\n" + "ordered_at: " +time
