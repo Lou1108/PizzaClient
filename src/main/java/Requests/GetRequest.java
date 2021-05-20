@@ -96,9 +96,10 @@ public class GetRequest {
             double price = pizza.getDouble("price");
             JSONArray toppings = pizza.getJSONArray("toppings");
             String top = "";
-            for(int j = 0; j < toppings.length();j++){
+            for(int j = 0; j < toppings.length()-1;j++){
                 top += toppings.getString(j) + ", ";
             }
+            top += toppings.getString(toppings.length()-1);
 
 
             output += ("PizzaID: " + pizzaId + "\n" + "name: " + name
