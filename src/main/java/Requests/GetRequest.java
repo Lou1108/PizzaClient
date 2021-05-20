@@ -68,7 +68,7 @@ public class GetRequest {
             JSONObject pizza = pizzas.getJSONObject(i);
 
             //TODO      int pizzaId = pizza.getInt("pizza_id");
-            int pizzaId = pizza.getInt("id");
+            int pizzaId = pizza.getInt("pizza_id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegetarian");  //TODO vegetarian instead of vegeterian
             double price = pizza.getDouble("price");
@@ -89,7 +89,7 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("id");
+            int pizzaId = pizza.getInt("pizza_id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegetarian");
             double price = pizza.getDouble("price");
@@ -116,7 +116,7 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("id");
+            int pizzaId = pizza.getInt("pizza_id");
             int customer = pizza.getInt("customerId");
             String status = pizza.getString("status");
             String time = pizza.getString("orderedAt");
@@ -143,7 +143,7 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++) {
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("id");
+            int pizzaId = pizza.getInt("pizza_id");
             String name = pizza.getString("name");
             output[i] =  "ID " + pizzaId + " : " +name;
         }
@@ -159,8 +159,8 @@ public class GetRequest {
         int orderId = 0; String delTime="";
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
-            if(pizza.toMap().containsKey("id")){
-                orderId = pizza.getInt("id");
+            if(pizza.toMap().containsKey("pizza_id")){
+                orderId = pizza.getInt("pizza_id");
             }
             if(pizza.toMap().containsKey("delivery_time")){
                 delTime = pizza.getString("delivery_time");
