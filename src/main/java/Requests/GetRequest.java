@@ -44,7 +44,6 @@ public class GetRequest {
                     response.append(ln);
                 }
             }
-            System.out.println(response);
             return response.toString();
 
         } catch (
@@ -69,7 +68,7 @@ public class GetRequest {
             JSONObject pizza = pizzas.getJSONObject(i);
 
             //TODO      int pizzaId = pizza.getInt("pizza_id");
-            int pizzaId = pizza.getInt("pizza_id");
+            int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
             boolean veg = pizza.getBoolean("vegetarian");  //TODO vegetarian instead of vegeterian
             double price = pizza.getDouble("price");
@@ -110,7 +109,7 @@ public class GetRequest {
 
     public String parseOrderHistory(String response){
         if (response.charAt(0) != '['){
-            return response;
+            return "No order was found for your customer ID.";
         }
         JSONArray pizzas = new JSONArray(response);
         String output = "";
@@ -120,16 +119,16 @@ public class GetRequest {
             //TODO             int pizzaId = pizza.getInt("pizza_id");
             int pizzaId = pizza.getInt("id");
             //TODO             int pizzaId = pizza.getInt("customer_id");
-            int customer = pizza.getInt("customer_id");
+            int customer = pizza.getInt("customerId");
             String status = pizza.getString("status");
-            String time = pizza.getString("ordered_at");
+            String time = pizza.getString("orderedAt");
             boolean takeaway = pizza.getBoolean("takeaway");
             String payment = pizza.getString("paymentType");
             JSONObject delivery = pizza.getJSONObject("deliveryAddress");
 
 
 
-            output += ("PizzaID: " + pizzaId + "\n" + "customer_id" + customer
+            output += ("PizzaID: " + pizzaId + "\n" + "customer_id " + customer
                     + "\n" + "status: " + status + "\n" + "ordered_at: " +time
                     + "\n" + "takeaway: " + takeaway + "\n"  + "payment type: " + payment
                     + "\n" + "delivery address" + delivery + "\n"  +"\n");
@@ -148,7 +147,7 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++) {
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("pizza_id"); // "pizza_id" TODO for our program id is needed, for others' pizza_id
+            int pizzaId = pizza.getInt("id"); // "pizza_id" TODO for our program id is needed, for others' pizza_id
             String name = pizza.getString("name");
             output[i] =  "ID " + pizzaId + " : " +name;
         }
@@ -157,15 +156,15 @@ public class GetRequest {
 
     public String parseDelTime(String response){
         if (response.charAt(0) != '['){
-            return response;
+            return "The order was already canceled or delivered.";
         }
         JSONArray pizzas = new JSONArray(response);
         String output = "";
         int orderId = 0; String delTime="";
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
-            if(pizza.toMap().containsKey("pizza_id")){
-                orderId = pizza.getInt("pizza_id");
+            if(pizza.toMap().containsKey("id")){
+                orderId = pizza.getInt("id");
             }
             if(pizza.toMap().containsKey("delivery_time")){
                 delTime = pizza.getString("delivery_time");

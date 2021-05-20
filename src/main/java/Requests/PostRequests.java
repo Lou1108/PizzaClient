@@ -58,14 +58,14 @@ public class PostRequests {
                     response.append(ln);
                 }
                 read.close();
+                return "Your order could not be placed.";
             } else {
                 read = new BufferedReader(new InputStreamReader(connect.getInputStream()));
                 while ((ln = read.readLine()) != null) {
                     response.append(ln);
                 }
+                return parsePost(response.toString());
             }
-            return parsePost(response.toString());
-
 
         } catch (IOException malformedURLException) {
             malformedURLException.printStackTrace();

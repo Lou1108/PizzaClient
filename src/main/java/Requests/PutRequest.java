@@ -41,6 +41,7 @@ public class PutRequest {
                     response.append(ln);
                 }
                 read.close();
+                return "The order was already canceled or delivered.";
             } else {
                 read = new BufferedReader(new InputStreamReader(connect.getInputStream()));
                 while ((ln = read.readLine()) != null) {
