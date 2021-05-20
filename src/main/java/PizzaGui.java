@@ -11,8 +11,8 @@ import javax.swing.*;
 
 public class PizzaGui extends JFrame
 {
-     private String url = "https://safe-savannah-12795.herokuapp.com/api/";
-    // private String url = "https://lozzio-pizza.herokuapp.com/api/v1/";
+     //private String url = "https://safe-savannah-12795.herokuapp.com/api/";
+     private String url = "https://lozzio-pizza.herokuapp.com/api/v1/";
 
     private static int customerID = 1233456788;
 
@@ -64,7 +64,7 @@ public class PizzaGui extends JFrame
         frame.add(layout);
 
         //setting the frame options
-        frame.setSize(800, 550);
+        frame.setSize(1100, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

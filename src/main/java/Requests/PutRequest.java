@@ -41,13 +41,17 @@ public class PutRequest {
                     response.append(ln);
                 }
                 read.close();
+                JSONObject pizza = new JSONObject(response.toString());
+                String message = pizza.getString("message");
+                return message;
+
             } else {
                 read = new BufferedReader(new InputStreamReader(connect.getInputStream()));
                 while ((ln = read.readLine()) != null) {
                     response.append(ln);
                 }
+                return parsePut(response.toString());
             }
-            return parsePut(response.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,10 +70,11 @@ public class PutRequest {
            return response;
        }
 
+       System.out.println(response);
        String output = "The order with ID ";
            JSONObject pizza = new JSONObject(response);
 
-           int orderId = pizza.getInt("id");
+           int orderId = pizza.getInt("pizza_id");
            String status = pizza.getString("status");
            output += orderId + " \n" + " was successfully " +status;
        return output;
