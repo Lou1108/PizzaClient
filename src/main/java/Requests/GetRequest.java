@@ -69,13 +69,13 @@ public class GetRequest {
             JSONObject pizza = pizzas.getJSONObject(i);
 
             //TODO      int pizzaId = pizza.getInt("pizza_id");
-            int pizzaId = pizza.getInt("id");
+            int pizzaId = pizza.getInt("pizza_id");
             String name = pizza.getString("name");
-            boolean veg = pizza.getBoolean("vegeterian");  //TODO vegetarian instead of vegeterian
+            boolean veg = pizza.getBoolean("vegetarian");  //TODO vegetarian instead of vegeterian
             double price = pizza.getDouble("price");
 
             output += ("PizzaID: " + pizzaId + "\n" + "name: " + name
-                    + "\n" + "vegeterian: " + veg + "\n" + "price: " +price + "\n" + "\n");
+                    + "\n" + "vegetarian: " + veg + "\n" + "price: " +price + "\n" + "\n");
         }
         return output;
     }
@@ -92,7 +92,7 @@ public class GetRequest {
 
             int pizzaId = pizza.getInt("id");
             String name = pizza.getString("name");
-            boolean veg = pizza.getBoolean("vegeterian");
+            boolean veg = pizza.getBoolean("vegetarian");
             double price = pizza.getDouble("price");
             JSONArray toppings = pizza.getJSONArray("toppings");
             String top = "";
@@ -103,7 +103,7 @@ public class GetRequest {
 
 
             output += ("PizzaID: " + pizzaId + "\n" + "name: " + name
-                    + "\n" + "vegeterian: " + veg + "\n" + "price: " +price + "\n" + "toppings: " + top + "\n"  + "\n");
+                    + "\n" + "vegetarian: " + veg + "\n" + "price: " +price + "\n" + "toppings: " + top + "\n"  + "\n");
         }
         return output;
     }
@@ -120,9 +120,9 @@ public class GetRequest {
             //TODO             int pizzaId = pizza.getInt("pizza_id");
             int pizzaId = pizza.getInt("id");
             //TODO             int pizzaId = pizza.getInt("customer_id");
-            int customer = pizza.getInt("customerId");
+            int customer = pizza.getInt("customer_id");
             String status = pizza.getString("status");
-            String time = pizza.getString("orderedAt");
+            String time = pizza.getString("ordered_at");
             boolean takeaway = pizza.getBoolean("takeaway");
             String payment = pizza.getString("paymentType");
             JSONObject delivery = pizza.getJSONObject("deliveryAddress");
@@ -148,7 +148,7 @@ public class GetRequest {
         for (int i = 0; i<pizzas.length();i++) {
             JSONObject pizza = pizzas.getJSONObject(i);
 
-            int pizzaId = pizza.getInt("id"); // "pizza_id" TODO for our program id is needed, for others' pizza_id
+            int pizzaId = pizza.getInt("pizza_id"); // "pizza_id" TODO for our program id is needed, for others' pizza_id
             String name = pizza.getString("name");
             output[i] =  "ID " + pizzaId + " : " +name;
         }
@@ -164,8 +164,8 @@ public class GetRequest {
         int orderId = 0; String delTime="";
         for (int i = 0; i<pizzas.length();i++){
             JSONObject pizza = pizzas.getJSONObject(i);
-            if(pizza.toMap().containsKey("id")){
-                orderId = pizza.getInt("id");
+            if(pizza.toMap().containsKey("pizza_id")){
+                orderId = pizza.getInt("pizza_id");
             }
             if(pizza.toMap().containsKey("delivery_time")){
                 delTime = pizza.getString("delivery_time");
